@@ -1,0 +1,50 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion '25.0.0'
+
+    defaultConfig {
+        applicationId "com.microsoft.onedrive.onedriveapiexplorer"
+        minSdkVersion 23
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    lintOptions {
+        disable 'InvalidPackage', 'Overdraw', 'PluralsCandidate', 'OldTargetApi', 'AllowBackup'
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+apply plugin: 'checkstyle'
+
+check.dependsOn 'checkstyle'
+
+task checkstyle(type: Checkstyle) {
+    configFile file("../checkstyle.xml")
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    classpath = files()
+}
+
+dependencies {
+    // Include the sdk as a dependency
+
+    // Include the gson dependency
+    
+
+    // Include supported authentication methods for your application
+    compile ('com.onedrive.sdk:onedrive-sdk-android:+')
+    compile 'com.google.code.gson:gson:2.3.1'
+    compile 'com.microsoft.services.msa:msa-auth:0.8.4'
+    //compile 'com.android.support:appcompat-v7:23.4.0'
+    //compile 'com.android.support.constraint:constraint-layout:1.0.2'
+}
